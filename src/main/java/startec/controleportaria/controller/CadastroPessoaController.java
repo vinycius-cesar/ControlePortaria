@@ -20,21 +20,19 @@ public class CadastroPessoaController {
 	private PessoaRepository pessoaRepository;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/cadastropessoa")
-	public ModelAndView inicio() {
-		ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
-		modelAndView.addObject("pessoaobj", new CadastroPessoa());
-		return modelAndView;
+	public String inicio() {
+		return "cadastro/cadastropessoa";
 	}
 
 	//Metodo de cadastro no banco de dados
-	@RequestMapping(method = RequestMethod.POST, value = "**/salvarpessoa")
+	@RequestMapping(method = RequestMethod.POST, value = "/salvarpessoa")
 	public ModelAndView salvar(CadastroPessoa pessoa) {
 		pessoaRepository.save(pessoa);
 		
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
 		Iterable<CadastroPessoa> pessoasIt = pessoaRepository.findAll(); //Busca os dados do banco de dados
 		modelAndView.addObject("buscarPessoasTable", pessoasIt); 
-		modelAndView.addObject("pessoaobj", new CadastroPessoa()); 
+		
 		return modelAndView; //tela que fica dps de salvar a pessoa
 	}
 	
@@ -45,7 +43,6 @@ public class CadastroPessoaController {
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
 		Iterable<CadastroPessoa> pessoasIt = pessoaRepository.findAll(); //Busca os dados do banco de dados
 		modelAndView.addObject("buscarPessoasTable", pessoasIt); //linka com os dados da tabela e puxa todos os dados do banco
-		modelAndView.addObject("pessoaobj", new CadastroPessoa());
 		return modelAndView;
 	}
 	
@@ -59,18 +56,5 @@ public class CadastroPessoaController {
 		modelAndView.addObject("pessoaobj", editarPessoa.get()); //pessoaobj = carrega os dados na tela e preenche os campos quando aperta em editar
 		return modelAndView;
 	}
-	
-	
-	//metodo para excluir
-		@GetMapping("/removerpessoa/{idpessoa}")
-		public ModelAndView excluir(@PathVariable("idpessoa") Long idpessoa) {
-			
-			pessoaRepository.deleteById(idpessoa);
-			
-			ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
-			modelAndView.addObject("buscarPessoasTable", pessoaRepository.findAll()); //pessoaobj = carrega os dados na tela e preenche os campos quando aperta em editar
-			modelAndView.addObject("pessoaobj", new CadastroPessoa());
-			return modelAndView;
-		}
 
 }
