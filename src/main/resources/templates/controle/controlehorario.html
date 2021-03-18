@@ -52,7 +52,48 @@
     </br></br></br>
     <input type="submit" value="Salvar">
     
-    
 </form>
+
+
+    <table>
+    <tr>
+    <th> id</th>
+    <th> Nome Visitante</th>
+    <th> CPF</th>
+    <th> Empresa</th>
+    <th> Finalidade</th>
+    <th> Falar com:</th>
+    <th> Tipo do Veiculo</th>
+    <th> Placa Veiculo</th>
+    <th> Horario de Entrada</th>
+    <th> Marcar Saida</th>
+    <th> Data</th>
+    
+    </tr>
+    <tr th:each = "ctrlHora : ${buscarControleHorario}">
+    <td th:text=${ctrlHora.id}>ID</td>
+    <td th:text=${ctrlHora.nomeVisitante}>NomeVisitante</td>
+    <td th:text=${ctrlHora.cpfVisitante}>CPF Visitante</td>
+    <td th:text=${ctrlHora.empresaVisitante}>Empresa Visitante</td>
+    <td th:text=${ctrlHora.finalidade}>Qual a finalidade</td>
+    <td th:text=${ctrlHora.falarComColaborador}>Falar com</td>
+    <td th:text=${ctrlHora.tipoVeiculo}>Veiculo</td>
+    <td th:text=${ctrlHora.placaVeiculo}>Placa</td>
+    <td th:text=${ctrlHora.horaEntrada}>Horario de entrada</td>
+    <td> <input type="submit" value="Marcar Saida"> </td>
+   <!--   <td th:text=${ctrlHora.horaSaida}> Horario de saida</td>  -->
+    <td th:text=${ctrlHora.dataAtual}>Data Atual</td>
+    
+    </tr>
+    </table>
+    
+    
+    
+    
+    
+    
+    
+    
+    
 </body>
 </html>

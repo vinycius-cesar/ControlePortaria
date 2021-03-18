@@ -1,6 +1,7 @@
 package startec.controleportaria.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,5 +33,19 @@ public class ControleHorarioController {
 		//Iterable<ControleHorario> pessoaIt = controleHorarioRepository.findAll(); //buscar os dados no banco de dados
 		return modelAndView;
 	}
+	
+	
+	//Metodo para buscar dados
+	@RequestMapping(method = RequestMethod.GET, value = "/listaControleHorario")
+	public ModelAndView consultarControleHorario() {
+		ModelAndView modelAndView = new ModelAndView("controle/controlehorario");
+		Iterable<ControleHorario> controleHorarioIt = controleHorarioRepository.findAll();
+		modelAndView.addObject("buscarControleHorario", controleHorarioIt);
+		
+		return modelAndView;
+	}
+	
+	//Metodo para buscar apenas os usuarios com
+	
 
 }
