@@ -20,7 +20,7 @@ public class CadastroPessoa implements Serializable {
 	private Long Id;
 	
 	private String nomeVisitante;
-	private int cpfVisitante;
+	private Long cpfVisitante;
 	private String empresaVisitante;
 	
 	
@@ -36,10 +36,10 @@ public class CadastroPessoa implements Serializable {
 	public void setNomeVisitante(String nomeVisitante) {
 		this.nomeVisitante = nomeVisitante;
 	}
-	public int getCpfVisitante() {
+	public Long getCpfVisitante() {
 		return cpfVisitante;
 	}
-	public void setCpfVisitante(int cpfVisitante) {
+	public void setCpfVisitante(Long cpfVisitante) {
 		this.cpfVisitante = cpfVisitante;
 	}
 	public String getEmpresaVisitante() {

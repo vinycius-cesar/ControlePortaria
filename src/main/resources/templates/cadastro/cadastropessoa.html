@@ -36,6 +36,7 @@
    <td th:text="${pessoa.cpfVisitante}"></td>
    <td th:text="${pessoa.empresaVisitante}"></td>
    <td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Editar</a></td>
+   <td><a th:href="@{/removerpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Excluir</a></td>
    </tr>
    
    </table>
