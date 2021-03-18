@@ -2,11 +2,12 @@ package startec.controleportaria.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
+@Entity
 public class ControleHorario implements Serializable {
 
 
@@ -21,7 +22,21 @@ public class ControleHorario implements Serializable {
 	private String horaEntrada;
 	private String horaSaida;
 	private String empresaVisitante;
+	private String cpfVisitante;
+	private String nomeVisitante;
+	private String finalidade;
+	private String falarComColaborador;
+	private String tipoVeiculo;
+	private String placaVeiculo;
 	
+	
+	
+	public String getNomeVisitante() {
+		return nomeVisitante;
+	}
+	public void setNomeVisitante(String nomeVisitante) {
+		this.nomeVisitante = nomeVisitante;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -82,11 +97,7 @@ public class ControleHorario implements Serializable {
 	public void setPlacaVeiculo(String placaVeiculo) {
 		this.placaVeiculo = placaVeiculo;
 	}
-	private String cpfVisitante;
-	private String finalidade;
-	private String falarComColaborador;
-	private String tipoVeiculo;
-	private String placaVeiculo;
+	
 	
 
 }

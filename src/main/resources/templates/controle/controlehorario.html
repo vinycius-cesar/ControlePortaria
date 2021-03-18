@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Controle de Entrada e Saida</title>
+<!-- MATERIALIZE -->
+<!--Import Google Icon Font-->
+     
+<!-- MATERIALIZE -->
+</head>
+<body>
+<h1>Pagina de controle de horario</h1>
+
+<form action="salvarHora" method="post">
+    <label>ID:</label>
+    <input name="id" readonly="readonly">
+   
+    <label>Nome:</label>
+    <input name="nomeVisitante" >
+    
+    <label>CPF:</label>
+    <input name="cpfVisitante" >
+    
+    <label>Empresa:</label>
+    <input name="empresaVisitante" >
+   
+    <label>Finalidade:</label>
+    <input name="finalidade" >
+    </br>
+    </br>
+    </br>
+    <label>Falar com quem:</label>
+    <input name="falarComColaborador" >
+    
+    <label>Tipo do Veiculo:</label>
+    <input name="tipoVeiculo" >
+   
+    <label>Placa do Veiculo:</label>
+    <input name="placaVeiculo" >
+   </br>
+   </br>
+   </br>
+    <label>Hora de Entrada:</label>
+    <input name="horaEntrada" >
+   
+    <label>Hora de saida:</label>
+    <input name="horaSaida" >
+   
+    <label>Data tual:</label>
+    <input name="dataAtual" >
+    
+    </br></br></br>
+    <input type="submit" value="Salvar">
+    
+    
+</form>
+</body>
+</html>
