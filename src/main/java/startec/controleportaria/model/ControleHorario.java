@@ -1,11 +1,16 @@
 package startec.controleportaria.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import startec.controleportaria.metodosHoraData.PegarDataHora;
 
 @Entity
 public class ControleHorario implements Serializable {
@@ -18,7 +23,7 @@ public class ControleHorario implements Serializable {
 	private Long id;
 	
 	
-	private String dataAtual;
+	private String dataAtual = pegarData();
 	private String horaEntrada;
 	private String horaSaida;
 	private String empresaVisitante;
@@ -48,7 +53,7 @@ public class ControleHorario implements Serializable {
 	}
 	public void setDataAtual(String dataAtual) {
 		this.dataAtual = dataAtual;
-	}
+	} 
 	public String getHoraEntrada() {
 		return horaEntrada;
 	}
@@ -99,5 +104,16 @@ public class ControleHorario implements Serializable {
 	}
 	
 	
+public String pegarData() {
+		
+		final DateFormat df = new SimpleDateFormat("ddMMyyyy");
+		final Calendar cal = Calendar.getInstance();
+		String dataAtual = (df.format(cal.getTime()));
+		
+		return dataAtual;
+		
+		
+		
+	}
 
 }

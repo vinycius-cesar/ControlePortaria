@@ -11,18 +11,25 @@
 <body>
 <h1>Pagina de controle de horario</h1>
 
-<form action="salvarControleHorario" method="post">
+<label> CPF:</label>
+<input>
+<input type="submit" value="Buscar">
+
+
+</br></br></br></br></br></br>
+
+<form action="salvarControleHorario" method="post" th:object="${pessoaobj}">
     <label>ID:</label>
-    <input name="id" readonly="readonly">
+    <input name="id" readonly="readonly" th:field="*{id}">
    
     <label>Nome:</label>
-    <input name="nomeVisitante" >
+    <input name="nomeVisitante"th:field="*{nomeVisitante}" readonly="readonly">
     
     <label>CPF:</label>
-    <input name="cpfVisitante" >
+    <input name="cpfVisitante"   th:field="*{cpfVisitante}" readonly="readonly">
     
     <label>Empresa:</label>
-    <input name="empresaVisitante" >
+    <input name="empresaVisitante" th:field="*{empresaVisitante}" readonly="readonly">
    
     <label>Finalidade:</label>
     <input name="finalidade" >
@@ -41,17 +48,18 @@
    </br>
    </br>
     <label>Hora de Entrada:</label>
-    <input name="horaEntrada" >
+    <input name="horaEntrada" readonly="readonly" >
    
     <label>Hora de saida:</label>
-    <input name="horaSaida" >
+    <input name="horaSaida" readonly="readonly">
    
     <label>Data tual:</label>
-    <input name="dataAtual" >
+    <input name="dataAtual"  >
     
     </br></br></br>
     <input type="submit" value="Salvar">
     
+
 </form>
 
 

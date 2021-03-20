@@ -4,16 +4,18 @@
 <meta charset="ISO-8859-1">
 <title>Controle Entrada e Saida</title>
 
-<!-- MATERIALIZE -->
-<!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="/materialize.min.css"  media="screen,projection"/>
-      <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+<!-- MATERIALIZE 
+<
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+      
+     <link type="text/css" rel="stylesheet" href="/materialize.min.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/> -->
 <!-- MATERIALIZE -->
 </head>
 <body>
    <h1>Cadastro de Pessoa</h1>
+   
+   <!-- FORMULARIO CADASTRO DE PESSOA -->
    
    <form action="salvarpessoa" method="post" th:object="${pessoaobj}">
     <label>ID:</label>
@@ -27,16 +29,20 @@
     
     <input type="submit" value="Salvar">
    </form>
+   </br>
+   
+   <!-- FIM FORMULARIO CADASTRO PESSOA -->
    <a href="/listapessoas">Listar Pessoas</a>
    
    <table>
    <tr th:each = "pessoa : ${buscarPessoasTable}">
    <td th:text="${pessoa.id}"></td>
-   <td th:text="${pessoa.nomeVisitante}"></td>
+   <td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}"><span th:text = "${pessoa.nomeVisitante}"></span> </a></td>
    <td th:text="${pessoa.cpfVisitante}"></td>
    <td th:text="${pessoa.empresaVisitante}"></td>
-   <td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Editar</a></td>
-   <td><a th:href="@{/removerpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Excluir</a></td>
+   <td><a th:href="@{/passarDadosControle/{idpessoa}(idpessoa=${pessoa.id})}">Marcar Entrada</a></td>
+   
+ <!--   <td><a th:href="@{/removerpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Excluir</a></td> --> 
    </tr>
    
    </table>

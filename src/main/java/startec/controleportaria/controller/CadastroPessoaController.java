@@ -62,6 +62,7 @@ public class CadastroPessoaController {
 	}
 	
 	//metodo para excluir
+	/*
 			@GetMapping("/removerpessoa/{idpessoa}")
 			public ModelAndView excluir(@PathVariable("idpessoa") Long idpessoa) {
 
@@ -72,5 +73,5 @@ public class CadastroPessoaController {
 				modelAndView.addObject("pessoaobj", new CadastroPessoa());
 				return modelAndView;
 			}
-
+*/
 }
