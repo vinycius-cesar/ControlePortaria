@@ -1,14 +1,17 @@
 <!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Controle de Entrada e Saida</title>
 <!-- MATERIALIZE -->
 <!--Import Google Icon Font-->
+
+    
      
 <!-- MATERIALIZE -->
 </head>
-<body>
+<body onload="DataEHora()">
 <h1>Pagina de controle de horario</h1>
 
 <label> CPF:</label>
@@ -32,29 +35,29 @@
     <input name="empresaVisitante" th:field="*{empresaVisitante}" readonly="readonly">
    
     <label>Finalidade:</label>
-    <input name="finalidade" >
+    <input name="finalidade">
     </br>
     </br>
     </br>
     <label>Falar com quem:</label>
-    <input name="falarComColaborador" >
+    <input name="falarComColaborador"  >
     
     <label>Tipo do Veiculo:</label>
     <input name="tipoVeiculo" >
    
     <label>Placa do Veiculo:</label>
-    <input name="placaVeiculo" >
+    <input name="placaVeiculo"  >
    </br>
    </br>
    </br>
     <label>Hora de Entrada:</label>
-    <input name="horaEntrada" readonly="readonly" >
+    <input name="horaEntrada" readonly="readonly" id="horaEntrada" value="" >
    
     <label>Hora de saida:</label>
     <input name="horaSaida" readonly="readonly">
    
     <label>Data tual:</label>
-    <input name="dataAtual"  >
+    <input name="dataAtual" value="" id="dataAtual"  >
     
     </br></br></br>
     <input type="submit" value="Salvar">
@@ -74,7 +77,6 @@
     <th> Tipo do Veiculo</th>
     <th> Placa Veiculo</th>
     <th> Horario de Entrada</th>
-    <th> Marcar Saida</th>
     <th> Data</th>
     
     </tr>
@@ -88,14 +90,42 @@
     <td th:text=${ctrlHora.tipoVeiculo}>Veiculo</td>
     <td th:text=${ctrlHora.placaVeiculo}>Placa</td>
     <td th:text=${ctrlHora.horaEntrada}>Horario de entrada</td>
-    <td> <input type="submit" value="Marcar Saida"> </td>
+      <td><a th:href="@{/horaSaida/{idpessoa}(idpessoa=${ctrlHora.id})}">Marcar Saida</a></td>
+     
+   
+    
    <!--   <td th:text=${ctrlHora.horaSaida}> Horario de saida</td>  -->
     <td th:text=${ctrlHora.dataAtual}>Data Atual</td>
+    
+    
     
     </tr>
     </table>
     
     
+    
+     <script type="text/javascript">
+  
+     function DataEHora(){
+    	var data = new Date();
+    	var hora = data.getHours() + ':' + data.getMinutes() + ':' + data.getSeconds();
+    	horaEntrada.value = hora;
+    	
+   
+    	
+    	var today = new Date();
+    	var dd = String(today.getDate()).padStart(2, '0');
+    	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    	var yyyy = today.getFullYear();
+
+    	today = dd + '/' + mm + '/' + yyyy;
+    	dataAtual.value = today
+         	
+    }
+    </script>
+   
+    
+   
     
     
     

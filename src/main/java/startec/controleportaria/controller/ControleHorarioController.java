@@ -31,6 +31,7 @@ public class ControleHorarioController {
 	public ModelAndView inicio() {
 		ModelAndView modelAndView = new ModelAndView("controle/controlehorario");
 		modelAndView.addObject("pessoaobj", new CadastroPessoa());
+		modelAndView.addObject("pessoaobj", new ControleHorario());
 		return modelAndView;
 	}
 	
@@ -45,7 +46,9 @@ public class ControleHorarioController {
 		Iterable<ControleHorario> pessoaIt = controleHorarioRepository.findAll(); //buscar os dados no banco de dados
 		modelAndView.addObject("buscarControleHorario", pessoaIt);
 		modelAndView.addObject("pessoaobj", new CadastroPessoa());
+		modelAndView.addObject("pessoaobj", new ControleHorario());
 		return modelAndView;
+		
 	}
 	
 	
@@ -59,6 +62,7 @@ public class ControleHorarioController {
 		Iterable<ControleHorario> controleHorarioIt = controleHorarioRepository.findAll();
 		modelAndView.addObject("buscarControleHorario", controleHorarioIt);
 		modelAndView.addObject("pessoaobj", new CadastroPessoa());
+		modelAndView.addObject("pessoaobj", new ControleHorario());
 		
 		return modelAndView;
 	}
@@ -71,8 +75,19 @@ public class ControleHorarioController {
 		
 		ModelAndView modelAndView = new ModelAndView("controle/controlehorario");
 		modelAndView.addObject("pessoaobj", passarDadosControle.get()); //pessoaobj = carrega os dados na tela e preenche os campos quando aperta em editar
+		
 		return modelAndView;
 	}
 	
+	//Metodo para editar e salvar a hora de saida e tirar da lista
+	@GetMapping("/horaSaida/{idpessoa}")
+	public ModelAndView HoraSaida(@PathVariable("idpessoa") Long idpessoa) {
+		
+		
+		ModelAndView modelAndView = new ModelAndView("controle/controlehorario");
+		Optional<ControleHorario> controleHorario = controleHorarioRepository.findById(idpessoa);
+		modelAndView.addObject("pessoaobj", controleHorario.get()); //pessoaobj = carrega os dados na tela e preenche os campos quando aperta em editar
+		return modelAndView;
+	}
 
 }

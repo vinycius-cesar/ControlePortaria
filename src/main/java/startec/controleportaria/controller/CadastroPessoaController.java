@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import startec.controleportaria.model.CadastroPessoa;
+import startec.controleportaria.model.ControleHorario;
+import startec.controleportaria.repository.ControleHorarioRepository;
 import startec.controleportaria.repository.PessoaRepository;
 
 @Controller
@@ -18,11 +20,13 @@ public class CadastroPessoaController {
 
 	@Autowired
 	private PessoaRepository pessoaRepository;
+	
 
 	@RequestMapping(method = RequestMethod.GET, value = "/cadastropessoa")
 	public ModelAndView inicio() {
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
 		modelAndView.addObject("pessoaobj", new CadastroPessoa());
+		
 		return modelAndView;
 	}
 
@@ -33,6 +37,7 @@ public class CadastroPessoaController {
 		
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
 		Iterable<CadastroPessoa> pessoasIt = pessoaRepository.findAll(); //Busca os dados do banco de dados
+		
 		modelAndView.addObject("buscarPessoasTable", pessoasIt); 
 		modelAndView.addObject("pessoaobj", new CadastroPessoa());
 		

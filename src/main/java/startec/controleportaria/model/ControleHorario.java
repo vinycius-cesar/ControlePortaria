@@ -1,6 +1,7 @@
 package startec.controleportaria.model;
 
 import java.io.Serializable;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -23,11 +24,13 @@ public class ControleHorario implements Serializable {
 	private Long id;
 	
 	
-	private String dataAtual = pegarData();
+	private String dataAtual;
 	private String horaEntrada;
 	private String horaSaida;
 	private String empresaVisitante;
 	private String cpfVisitante;
+	
+
 	private String nomeVisitante;
 	private String finalidade;
 	private String falarComColaborador;
@@ -104,16 +107,6 @@ public class ControleHorario implements Serializable {
 	}
 	
 	
-public String pegarData() {
-		
-		final DateFormat df = new SimpleDateFormat("ddMMyyyy");
-		final Calendar cal = Calendar.getInstance();
-		String dataAtual = (df.format(cal.getTime()));
-		
-		return dataAtual;
-		
-		
-		
-	}
+
 
 }
