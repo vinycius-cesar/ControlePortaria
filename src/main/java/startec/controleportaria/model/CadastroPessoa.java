@@ -1,12 +1,13 @@
 package startec.controleportaria.model;
 
 import java.io.Serializable;
-
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 
 
@@ -23,7 +24,16 @@ public class CadastroPessoa implements Serializable {
 	private Long cpfVisitante;
 	private String empresaVisitante;
 	
+	@OneToMany(mappedBy = "cadastroPessoa")
+	private List<ControleHorarioFK> controleHorario;
 	
+	
+	public List<ControleHorarioFK> getControleHorario() {
+		return controleHorario;
+	}
+	public void setControleHorario(List<ControleHorarioFK> controleHorario) {
+		this.controleHorario = controleHorario;
+	}
 	public Long getId() {
 		return Id;
 	}

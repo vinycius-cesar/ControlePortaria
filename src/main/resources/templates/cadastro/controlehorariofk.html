@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Controle Entrada e Saida</title>
+
+<!-- MATERIALIZE 
+<
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+      
+     <link type="text/css" rel="stylesheet" href="/materialize.min.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/> -->
+<!-- MATERIALIZE -->
+</head>
+<body>
+   <h1>Controle de Entrada e Saida</h1>
+   <div th:each="p :  ${pessoaobj}">
+       <p>ID: <span th:text="${p.id}"></span></p>
+       <p>NOME: <span th:text="${p.nomeVisitante}"></span></p>
+       <p>CPF: <span th:text="${p.cpfVisitante}"></span></p>
+       <p>EMPRESA: <span th:text="${p.empresaVisitante}"></span></p>
+   </div>
+   
+   <h5>Registro de entrada e saida</h5>
+   <div>
+     <form th:action="@{/registrarEntrada/{pessoaid}(pessoaid=${pessoaobj.id})}" method="post">
+          <label>Data Atual</label>
+          <input name="dataAtual">
+         
+          <label>Hora Entrada</label>
+          <input name="horaEntrada">
+          
+          <label>Hora Saida</label>
+          <input name="horaSaida">
+          
+          <label>Finalidade</label>
+          <input name="finalidade">
+          
+          <label>Falar com:</label>
+          <input name="falarComColaborador">
+          
+          <label>Tipo Veiculo</label>
+          <input name="tipoVeiculo">
+          
+          <label>Placa do Veiculo</label>
+          <input name="placaVeiculo">
+          
+          <input type="submit" value="Registrar Entrada">
+               
+     </form>
+   </div>
+  
+  <table>
+      <tr th:each="tblControle : ${tblControleEntrada}">
+        <td th:text="${tblControle.dataAtual}"></td>
+        <td th:text="${tblControle.horaEntrada}"></td>
+        <td th:text="${tblControle.horaSaida}"></td>
+        <td th:text="${tblControle.finalidade}"></td>
+        <td th:text="${tblControle.falarComColaborador}"></td>
+        <td th:text="${tblControle.tipoVeiculo}"></td>
+        <td th:text="${tblControle.placaVeiculo}"></td>
+      </tr>
+  </table>
+   
+   
+   
+   
+   <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+   <script type="text/javascript" src="materialize/js/materialize.js"></script> 
+</body>
+</html>

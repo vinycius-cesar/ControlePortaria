@@ -37,10 +37,10 @@
    <table>
    <tr th:each = "pessoa : ${buscarPessoasTable}">
    <td th:text="${pessoa.id}"></td>
-   <td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}"><span th:text = "${pessoa.nomeVisitante}"></span> </a></td>
+   <td><a th:href="@{/controlehorariofk/{idpessoa}(idpessoa=${pessoa.id})}"><span th:text = "${pessoa.nomeVisitante}"></span> </a></td>
    <td th:text="${pessoa.cpfVisitante}"></td>
    <td th:text="${pessoa.empresaVisitante}"></td>
-    <td><a th:href="@{/passarDadosControle/{idpessoa}(idpessoa=${pessoa.id})}">Marcar Entrada</a></td>
+    <td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">editar</a></td>
    
  <!--   <td><a th:href="@{/removerpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Excluir</a></td> --> 
    </tr>

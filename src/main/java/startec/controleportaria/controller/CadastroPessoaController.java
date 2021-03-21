@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import startec.controleportaria.model.CadastroPessoa;
 import startec.controleportaria.model.ControleHorario;
+import startec.controleportaria.model.ControleHorarioFK;
+import startec.controleportaria.repository.ControleHorarioFKRepository;
 import startec.controleportaria.repository.ControleHorarioRepository;
 import startec.controleportaria.repository.PessoaRepository;
 
@@ -21,11 +24,16 @@ public class CadastroPessoaController {
 	@Autowired
 	private PessoaRepository pessoaRepository;
 	
+	@Autowired
+	private ControleHorarioFKRepository controleHorarioFKRepository;
+	
 
 	@RequestMapping(method = RequestMethod.GET, value = "/cadastropessoa")
 	public ModelAndView inicio() {
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
 		modelAndView.addObject("pessoaobj", new CadastroPessoa());
+		Iterable<CadastroPessoa> pessoasIt = pessoaRepository.findAll(); //Busca os dados do banco de dados
+		modelAndView.addObject("buscarPessoasTable", pessoasIt);
 		
 		return modelAndView;
 	}
@@ -63,6 +71,31 @@ public class CadastroPessoaController {
 		
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
 		modelAndView.addObject("pessoaobj", editarPessoa.get()); //pessoaobj = carrega os dados na tela e preenche os campos quando aperta em editar
+		return modelAndView;
+	}
+	
+	
+	//metodo para pegar o usuario e marcar entrada e saida // estou copiando o metodo de telefone
+	@GetMapping("/controlehorariofk/{idpessoa}")
+	public ModelAndView controleHorario(@PathVariable("idpessoa") Long idpessoa) {
+		
+		Optional<CadastroPessoa> editarPessoa = pessoaRepository.findById(idpessoa);
+		
+		ModelAndView modelAndView = new ModelAndView("cadastro/controlehorariofk");
+		modelAndView.addObject("pessoaobj", editarPessoa.get()); //pessoaobj = carrega os dados na tela e preenche os campos quando aperta em editar
+		modelAndView.addObject("tblControleEntrada", controleHorarioFKRepository.getControleHorario(idpessoa));
+		return modelAndView;
+	}
+	
+	@PostMapping("**/registrarEntrada/{pessoaid}")
+	public ModelAndView registrarEntrada( ControleHorarioFK controleHorariofk, @PathVariable("pessoaid") Long pessoaid) {
+		CadastroPessoa cadastroPessoa = pessoaRepository.findById(pessoaid).get();
+		controleHorariofk.setCadastroPessoa(cadastroPessoa);
+		controleHorarioFKRepository.save(controleHorariofk);
+		
+		ModelAndView modelAndView = new ModelAndView("cadastro/controlehorariofk");
+		modelAndView.addObject("pessoaobj", cadastroPessoa);
+		modelAndView.addObject("tblControleEntrada", controleHorarioFKRepository.getControleHorario(pessoaid));
 		return modelAndView;
 	}
 	
