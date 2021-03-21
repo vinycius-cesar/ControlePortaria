@@ -20,4 +20,11 @@ public interface ControleHorarioFKRepository extends CrudRepository<ControleHora
 			  nativeQuery = true)
 	public List<ControleHorarioFK> getControleHorario(Long pessoaid); 
 	
+	
+	
+	@Query(
+			  value = "select * from controle_horariofk where id = ?1", 
+			  nativeQuery = true)
+	public List<ControleHorarioFK> getControleHorarioFKs(Long idcontrolefk);
+	
 }

@@ -13,41 +13,36 @@
 <!-- MATERIALIZE -->
 </head>
 <body>   
-   <h1>Controle de Entrada e Saida</h1>
-   <div th:each="p :  ${pessoaobj}">
-       <p>ID: <span th:text="${p.id}"></span></p>
-       <p>NOME: <span th:text="${p.nomeVisitante}"></span></p>
-       <p>CPF: <span th:text="${p.cpfVisitante}"></span></p>
-       <p>EMPRESA: <span th:text="${p.empresaVisitante}"></span></p>
-   </div>
+   <h1>Controle de Saida</h1>
+  
    
-   <h5>Registro de entrada e saida</h5>
+   <h5>Registro  saida</h5>
    <div>
-     <form th:action="@{/registrarEntrada/{pessoaid}(pessoaid=${pessoaobj.id})}" method="post" th:object="${controleobj}" >
+     <form action="/salvarsaida" method="post" th:object="${pessoaobj}" >
           
-           <label>ID</label>
-           <input name="id" th:field="*{id}" readonly="readonly">
+          <label>ID</label>
+          <input name="id" readonly="readonly" id="*{id}">
                     
           <label>Data Atual</label>
-          <input name="dataAtual" th:field="*{dataAtual}" >
+          <input name="dataAtual">
          
           <label>Hora Entrada</label>
-          <input name="horaEntrada" th:field="*{horaEntrada}">
+          <input name="horaEntrada">
           
           <label>Hora Saida</label>
-          <input name="horaSaida" th:field="*{horaSaida}">
+          <input name="horaSaida">
           
           <label>Finalidade</label>
-          <input name="finalidade" th:field="*{finalidade}">
+          <input name="finalidade">
           
           <label>Falar com:</label>
-          <input name="falarComColaborador" th:field="*{falarComColaborador}">
+          <input name="falarComColaborador">
           
           <label>Tipo Veiculo</label>
-          <input name="tipoVeiculo" th:field="*{tipoVeiculo}">
+          <input name="tipoVeiculo">
           
           <label>Placa do Veiculo</label>
-          <input name="placaVeiculo" th:field="*{placaVeiculo}">
+          <input name="placaVeiculo">
           
           <input type="submit" value="Registrar Entrada">
                
@@ -64,8 +59,7 @@
         <td th:text="${tblControle.falarComColaborador}"></td>
         <td th:text="${tblControle.tipoVeiculo}"></td>
         <td th:text="${tblControle.placaVeiculo}"></td>
-        <td><a th:href="@{/salvarsaida/{idcontrolefk}(idcontrolefk=${tblControle.id})}">Marcar Saida</a></td> 
- <!--   <td><a th:href="@{/removerteste/{idcontrolefk}(idcontrolefk=${tblControle.id})}">remover</a></td>  -->
+       <!--     <td><a th:href="@{/salvarsaida/{idcontrolefk}(idcontrolefk=${tblControle.id})}">editar</a></td> -->
       </tr>
   </table>
    
