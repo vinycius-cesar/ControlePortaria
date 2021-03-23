@@ -57,7 +57,7 @@ public class ControleHorarioFK {
 		return horaSaida;
 	}
 
-	public void setHoraSaidda(String horaSaida) {
+	public void setHoraSaida(String horaSaida) {
 		this.horaSaida = horaSaida;
 	}
 
@@ -116,6 +116,7 @@ public class ControleHorarioFK {
 	public void setCadastroPessoa(CadastroPessoa cadastroPessoa) {
 		this.cadastroPessoa = cadastroPessoa;
 	}
+
 	
 	
 

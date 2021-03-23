@@ -11,6 +11,8 @@
      <link type="text/css" rel="stylesheet" href="/materialize.min.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/> -->
 <!-- MATERIALIZE -->
+
+
 </head>
 <body>   
    <h1>Controle de Entrada e Saida</h1>
@@ -21,21 +23,44 @@
        <p>EMPRESA: <span th:text="${p.empresaVisitante}"></span></p>
    </div>
    
+   
+   <h1>****Em aberto</h1></br></br></br>
+    <table >
+      <tr th:each="tblControle : ${tblControleSaida}">
+       <td th:text="${tblControle.id}"></td>
+        <td th:text="${tblControle.dataAtual}"></td>
+        <td th:text="${tblControle.horaEntrada}"></td>
+        <td th:text="${tblControle.horaSaida}"></td>
+        <td th:text="${tblControle.finalidade}"></td>
+        <td th:text="${tblControle.falarComColaborador}"></td>
+        <td th:text="${tblControle.tipoVeiculo}"></td>
+        <td th:text="${tblControle.placaVeiculo}"></td>
+        <td><a th:href="@{/salvarsaida/{idcontrolefk}(idcontrolefk=${tblControle.id})}"><button onclick="acionarBtnConfSaida();" id="marcarSaida" >Marcar Saida</button></a></td> 
+        
+ 
+ <!--   <td><a th:href="@{/removerteste/{idcontrolefk}(idcontrolefk=${tblControle.id})}">remover</a></td>  -->
+      </tr>
+  </table>
+   
+   
+   
+   <h1>****Em aberto</h1></br></br></br>
+   
    <h5>Registro de entrada e saida</h5>
-   <div>
+   <div >
      <form th:action="@{/registrarEntrada/{pessoaid}(pessoaid=${pessoaobj.id})}" method="post" th:object="${controleobj}" >
           
-           <label>ID</label>
-           <input name="id" th:field="*{id}" readonly="readonly" >
+           <label >ID</label>
+           <input name="id" th:field="*{id}"  >
                     
           <label>Data Atual</label>
-          <input name="dataAtual" th:field="*{dataAtual}" readonly="readonly" value="" id="dataAtual">
+          <input name="dataAtual" th:field="*{dataAtual}"  value="" id="dataAtual">
          
           <label>Hora Entrada</label>
-          <input name="horaEntrada" th:field="*{horaEntrada}" readonly="readonly" value="" id="horaEntrada">
+          <input name="horaEntrada" th:field="*{horaEntrada}"  value="" id="horaEntrada">
           
           <label>Hora Saida</label>
-          <input name="horaSaida" th:field="*{horaSaida}"  readonly="readonly" value="" id="horaSaida">
+          <input name="horaSaida"  th:field="*{horaSaida}"  value="" id="horaSaida">
           
           <label>Finalidade</label>
           <input name="finalidade" th:field="*{finalidade}">
@@ -47,15 +72,21 @@
           <input name="tipoVeiculo" th:field="*{tipoVeiculo}">
           
           <label>Placa do Veiculo</label>
-          <input name="placaVeiculo" th:field="*{placaVeiculo}">
           
-          <input type="submit" value="Registrar Entrada" id="registrarEntrada" onclick="return pergunta();">
-         <input type="button" onclick="funcao1();" value="Exibir Alert" id="testebtn" />
-               
+          <input name="placaVeiculo" th:field="*{placaVeiculo}">
+         
+          <label>saida ok</label>
+          <input name="saidaOK"   id="saidaOK">
+          
+          <button id="confSaida" disabled="true">Confirmar Saida</button>
+           
+          
+          <input type="submit" value="REGISTRAR" id="registrarEntrada"  >
+                       
      </form>
    </div>
   
-  <table>
+  <table >
       <tr th:each="tblControle : ${tblControleEntrada}">
        <td th:text="${tblControle.id}"></td>
         <td th:text="${tblControle.dataAtual}"></td>
@@ -65,47 +96,23 @@
         <td th:text="${tblControle.falarComColaborador}"></td>
         <td th:text="${tblControle.tipoVeiculo}"></td>
         <td th:text="${tblControle.placaVeiculo}"></td>
-        <td><a th:href="@{/salvarsaida/{idcontrolefk}(idcontrolefk=${tblControle.id})}"><button onclick="funcao2();">saida</button></a></td> 
+ <!--   <td><a th:href="@{/salvarsaida/{idcontrolefk}(idcontrolefk=${tblControle.id})}"><button onclick="teste()" id="btnteste" >Marcar Saida</button></a></td> -->  
  <!--   <td><a th:href="@{/removerteste/{idcontrolefk}(idcontrolefk=${tblControle.id})}">remover</a></td>  -->
       </tr>
   </table>
    
-   <script type="text/javascript">
-   function funcao1() {
-	   var data = new Date();
-	   var hora = data.getHours() + ':' + data.getMinutes() + ':' + data.getSeconds();
-	   horaEntrada.value = hora;
-	  
-	   
-	   var today = new Date();
-	  	var dd = String(today.getDate()).padStart(2, '0');
-	  	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-	  	var yyyy = today.getFullYear();
-
-	  	today = dd + '/' + mm + '/' + yyyy;
-	    dataAtual.value = today
-	    
-	    document.getElementById('registrarEntrada').click();
-   }
-   
-   function funcao2() {
-	   var data = new Date();
-	   var hora = data.getHours() + ':' + data.getMinutes() + ':' + data.getSeconds();
-	   horaSaida.value = hora;
-   }
-   
-   
-   function pergunta(){ 
-	   //retorna true se confirmado, ou false se cancelado
-	   return confirm('Confirmar Entrada do Visitante');
-	   
+	<script type="text/javascript">
+	function acionarBtnConfSaida(){
+		document.getElementById("confSaida").disabled = false;	
+		
 	}
-   </script>
-
 	
+	
+	
+	</script>
 
 
-	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+  <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
    <script type="text/javascript" src="materialize/js/materialize.js"></script> 
 </body>
 </html>

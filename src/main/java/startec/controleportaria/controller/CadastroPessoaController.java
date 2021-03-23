@@ -84,6 +84,7 @@ public class CadastroPessoaController {
 		ModelAndView modelAndView = new ModelAndView("cadastro/controlehorariofk");
 		modelAndView.addObject("pessoaobj", editarPessoa.get()); //pessoaobj = carrega os dados na tela e preenche os campos quando aperta em editar
 		modelAndView.addObject("tblControleEntrada", controleHorarioFKRepository.getControleHorario(idpessoa));
+		modelAndView.addObject("tblControleSaida", controleHorarioFKRepository.getMarcarSaida(idpessoa));
 		modelAndView.addObject("controleobj", new ControleHorarioFK()); 
 		return modelAndView;
 	}
@@ -97,10 +98,39 @@ public class CadastroPessoaController {
 		ModelAndView modelAndView = new ModelAndView("cadastro/controlehorariofk");
 		modelAndView.addObject("pessoaobj", cadastroPessoa);
 		modelAndView.addObject("tblControleEntrada", controleHorarioFKRepository.getControleHorario(pessoaid));
-		//ModelAndView modelAndView = new ModelAndView("cadastro/controlehorariofk");
+		modelAndView.addObject("tblControleSaida", controleHorarioFKRepository.getMarcarSaida(pessoaid));
 		modelAndView.addObject("controleobj", new ControleHorarioFK()); 
 		return modelAndView;
 	}
+	
+	
+	
+	
+	@GetMapping("/salvarsaida/{idcontrolefk}")
+	public ModelAndView editarSalvarSaida(@PathVariable("idcontrolefk") Long idcontrolefk) { //utilizando o metodo editar para salvar a saida da pessoa
+
+       // Optional<CadastroPessoa> editarPessoa = pessoaRepository.findById(idpessoa);
+        Optional<ControleHorarioFK> editarSaida = controleHorarioFKRepository.findById(idcontrolefk);
+		CadastroPessoa cadastroPessoa = controleHorarioFKRepository.findById(idcontrolefk).get().getCadastroPessoa();
+
+		ModelAndView modelAndView = new ModelAndView("cadastro/controlehorariofk");
+		modelAndView.addObject("controleobj", editarSaida.get()); //pessoaobj = carrega os dados na tela e preenche os campos quando aperta em editar
+		modelAndView.addObject("pessoaobj", cadastroPessoa);
+		modelAndView.addObject("tblControleEntrada", controleHorarioFKRepository.getControleHorario(cadastroPessoa.getId()));
+		modelAndView.addObject("tblControleSaida", controleHorarioFKRepository.getMarcarSaida(cadastroPessoa.getId()));
+		return modelAndView;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/*
@@ -117,19 +147,13 @@ public class CadastroPessoaController {
 	
 	
 	//metodo para editar
-	@GetMapping("/salvarsaida/{idcontrolefk}")
-	public ModelAndView editarSalvarSaida(@PathVariable("idcontrolefk") Long idcontrolefk) { //utilizando o metodo editar para salvar a saida da pessoa
 		
-       // Optional<CadastroPessoa> editarPessoa = pessoaRepository.findById(idpessoa);
-        Optional<ControleHorarioFK> editarSaida = controleHorarioFKRepository.findById(idcontrolefk);
-		CadastroPessoa cadastroPessoa = controleHorarioFKRepository.findById(idcontrolefk).get().getCadastroPessoa();
-		
-		ModelAndView modelAndView = new ModelAndView("cadastro/controlehorariofk");
-		modelAndView.addObject("controleobj", editarSaida.get()); //pessoaobj = carrega os dados na tela e preenche os campos quando aperta em editar
-		modelAndView.addObject("pessoaobj", cadastroPessoa);
-		modelAndView.addObject("tblControleEntrada", controleHorarioFKRepository.getControleHorario(cadastroPessoa.getId()));
-		return modelAndView;
-	}
+	
+	
+	
+	
+	
+	
 	/*
 	@GetMapping("/removerteste/{idcontrolefk}")
 	public ModelAndView excluir(@PathVariable("idcontrolefk") Long idcontrolefk) {
