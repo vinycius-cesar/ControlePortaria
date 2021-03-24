@@ -14,7 +14,7 @@
 
 
 </head>
-<body>   
+<body onload="carregarpagina();">   
    <h1>Controle de Entrada e Saida</h1>
    <div th:each="p :  ${pessoaobj}">
        <p>ID: <span th:text="${p.id}"></span></p>
@@ -35,8 +35,8 @@
         <td th:text="${tblControle.falarComColaborador}"></td>
         <td th:text="${tblControle.tipoVeiculo}"></td>
         <td th:text="${tblControle.placaVeiculo}"></td>
-        <td><a th:href="@{/salvarsaida/{idcontrolefk}(idcontrolefk=${tblControle.id})}"><button onclick="acionarBtnConfSaida();" id="marcarSaida" >Marcar Saida</button></a></td> 
-        
+        <td><a th:href="@{/salvarsaida/{idcontrolefk}(idcontrolefk=${tblControle.id})}"><button ondblclick="btnSaidaTeste();" id="marcarSaida" >Marcar Saida</button></a></td> 
+        <button id="teste" >teste</button>
  
  <!--   <td><a th:href="@{/removerteste/{idcontrolefk}(idcontrolefk=${tblControle.id})}">remover</a></td>  -->
       </tr>
@@ -51,19 +51,19 @@
      <form th:action="@{/registrarEntrada/{pessoaid}(pessoaid=${pessoaobj.id})}" method="post" th:object="${controleobj}" >
           
            <label >ID</label>
-           <input name="id" th:field="*{id}"  >
+           <input name="id" th:field="*{id}" readonly="readonly">
                     
           <label>Data Atual</label>
-          <input name="dataAtual" th:field="*{dataAtual}"  value="" id="dataAtual">
+          <input name="dataAtual" th:field="*{dataAtual}"  value="" id="dataAtual" readonly="readonly">
          
           <label>Hora Entrada</label>
-          <input name="horaEntrada" th:field="*{horaEntrada}"  value="" id="horaEntrada">
+          <input name="horaEntrada" th:field="*{horaEntrada}"  value="" id="horaEntrada" readonly="readonly">
           
           <label>Hora Saida</label>
-          <input name="horaSaida"  th:field="*{horaSaida}"  value="" id="horaSaida">
+          <input name="horaSaida"  th:field="*{horaSaida}"  value="" id="horaSaida" readonly="readonly">
           
           <label>Finalidade</label>
-          <input name="finalidade" th:field="*{finalidade}">
+          <input name="finalidade" th:field="*{finalidade}" onblur="finalidadeFocus();">
           
           <label>Falar com:</label>
           <input name="falarComColaborador" th:field="*{falarComColaborador}">
@@ -77,11 +77,12 @@
          
           <label>saida ok</label>
           <input name="saidaOK"   id="saidaOK">
+                
+             
+
           
-          <button id="confSaida" disabled="true">Confirmar Saida</button>
-           
-          
-          <input type="submit" value="REGISTRAR" id="registrarEntrada"  >
+          <input type="submit" value="REGISTRAR" id="registrarEntrada" onclick="funcao1();" disabled="disabled">
+           <input type="submit" value="REGISTRAR SAIDA"  id="btnSaida" onclick="horarioSaida();" disabled="disabled" >
                        
      </form>
    </div>
@@ -102,17 +103,66 @@
   </table>
    
 	<script type="text/javascript">
-	function acionarBtnConfSaida(){
-		document.getElementById("confSaida").disabled = false;	
-		
+	function funcao1() {
+		   var data = new Date();
+		   var hora = data.getHours() + ':' + data.getMinutes() + ':' + data.getSeconds();
+		   horaEntrada.value = hora;
+		  
+		   
+		   var today = new Date();
+		  	var dd = String(today.getDate()).padStart(2, '0');
+		  	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+		  	var yyyy = today.getFullYear();
+
+		  	today = dd + '/' + mm + '/' + yyyy;
+		    dataAtual.value = today
+		    
+	   }
+	
+	function horarioSaida(){
+		 var data = new Date();
+		   var hora = data.getHours() + ':' + data.getMinutes() + ':' + data.getSeconds();
+		   horaSaida.value = hora;
+		   saidaOK.value = 'ok';
 	}
 	
+	function btnSaidaTeste(){
+		if ( document.getElementById("horaSaida").value != ""){
+			
+			document.getElementById("btnEntrada").disabled = false;
+		}
+	}
+	
+	
+	function finalidadeFocus(){
+		if(document.getElementById("finalidade").value !== null){
+			document.getElementById("registrarEntrada").disabled = false;
+		}
+		
+		if(document.getElementById("finalidade").value == ""){
+			document.getElementById("registrarEntrada").disabled = true;
+		}
+	}
+	
+	function carregarpagina(){
+		if(document.getElementById("horaEntrada").value !== ""){
+			document.getElementById("btnSaida").disabled = false;
+			alert("teste");
+		}
+		
+		var button = document.getElementById("btnSaida");
+
+		if(button.disabled){
+		  console.log('Está desabilitado.');
+		}
+		
+		}
+	
+		
 	
 	
 	</script>
 
 
-  <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
-   <script type="text/javascript" src="materialize/js/materialize.js"></script> 
 </body>
 </html>
