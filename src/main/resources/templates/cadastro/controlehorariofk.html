@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Controle Entrada e Saida</title>
 
 <!-- MATERIALIZE 
@@ -11,7 +11,8 @@
      <link type="text/css" rel="stylesheet" href="/materialize.min.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/> -->
 <!-- MATERIALIZE -->
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
 </head>
 <body onload="carregarpagina();">   
@@ -24,7 +25,7 @@
    </div>
    
    
-   <h1>****Em aberto</h1></br></br></br>
+   <h1>*****************Em aberto*****************</h1></br></br></br>
     <table >
       <tr th:each="tblControle : ${tblControleSaida}">
        <td th:text="${tblControle.id}"></td>
@@ -44,12 +45,12 @@
    
    
    
-   <h1>****Em aberto</h1></br></br></br>
+   <h1>*****************Em aberto*****************</h1></br></br></br>
    
    <h5>Registro de entrada e saida</h5>
    <div >
-     <form th:action="@{/registrarEntrada/{pessoaid}(pessoaid=${pessoaobj.id})}" method="post" th:object="${controleobj}" >
-          
+     <form th:action="@{/registrarEntrada/{pessoaid}(pessoaid=${pessoaobj.id})}" method="post" th:object="${controleobj}" class="row g-3 needs-validation">
+          <div class="col-md-12" > 
            <label >ID</label>
            <input name="id" th:field="*{id}" readonly="readonly">
                     
@@ -61,33 +62,48 @@
           
           <label>Hora Saida</label>
           <input name="horaSaida"  th:field="*{horaSaida}"  value="" id="horaSaida" readonly="readonly">
+         
           
           <label>Finalidade</label>
           <input name="finalidade" th:field="*{finalidade}" onblur="finalidadeFocus();">
-          
+           </div>
+          <div class="col-md-12" >
           <label>Falar com:</label>
           <input name="falarComColaborador" th:field="*{falarComColaborador}">
           
           <label>Tipo Veiculo</label>
           <input name="tipoVeiculo" th:field="*{tipoVeiculo}">
-          
+            
           <label>Placa do Veiculo</label>
           
           <input name="placaVeiculo" th:field="*{placaVeiculo}">
          
           <label>saida ok</label>
-          <input name="saidaOK"   id="saidaOK">
-                
-             
+          <input name="saidaOK"   id="saidaOK" readonly="readonly">           
 
           
           <input type="submit" value="REGISTRAR" id="registrarEntrada" onclick="funcao1();" disabled="disabled">
            <input type="submit" value="REGISTRAR SAIDA"  id="btnSaida" onclick="horarioSaida();" disabled="disabled" >
+           </div>
                        
      </form>
    </div>
+   
+   </br></br>
   
-  <table >
+  <table id="tblVisitante" class="table table-striped table-dark" >
+   <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Data Atual</th>
+      <th scope="col">Hora Entrada</th>
+      <th scope="col">Hora Saida</th>
+      <th scope="col">Finalidade</th>
+      <th scope="col">Falar com:</th>
+      <th scope="col">Veiculo</th>
+      <th scope="col">Placa Veiculo</th>
+    </tr>
+    </thead>
       <tr th:each="tblControle : ${tblControleEntrada}">
        <td th:text="${tblControle.id}"></td>
         <td th:text="${tblControle.dataAtual}"></td>
@@ -147,21 +163,36 @@
 	function carregarpagina(){
 		if(document.getElementById("horaEntrada").value !== ""){
 			document.getElementById("btnSaida").disabled = false;
-			alert("teste");
+			
 		}
 		
 		var button = document.getElementById("btnSaida");
 
 		if(button.disabled){
-		  console.log('Est� desabilitado.');
+		  console.log('Está desabilitado.');
 		}
 		
 		}
-	
 		
-	
-	
 	</script>
+	
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+   <link rel="stylesheet" href="//cdn.datable.net/1.10.10/css/jquery.dataTable.min.css">
+   <script src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+   <script>
+      $(document).ready(function(){
+    	  $('#tblControleHora').DataTable({
+    		  "language": {
+    	            "lengthMenu": "Mostrando _MENU_ N° de Registros",
+    	            "zeroRecords": "Nada Encontrado",
+    	            "info": "Mostrando Página _PAGE_ de _PAGES_",
+    	            "infoEmpty": "Nenhum registro disponível",
+    	            "infoFiltered": "(filtrado de _MAX_ total records)"
+    	        }
+    	  });
+      });
+   </script>
 
 
 </body>
