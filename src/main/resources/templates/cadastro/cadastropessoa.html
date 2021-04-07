@@ -28,14 +28,14 @@
    
    <form action="salvarpessoa" method="post" th:object="${pessoaobj}" class="row g-3 needs-validation">
     <div class="col-md-12">
+    <label>Empresa:</label>
+    <input name="empresaVisitante" th:field="*{EmpresaVisitante}">
     <label>ID:</label>
     <input name="Id" readonly="readonly" th:field="*{id}">
     <label>Nome:</label>
     <input name="nomeVisitante" th:field="*{nomeVisitante}">
     <label>CPF:</label>
     <input name="cpfVisitante" th:field="*{cpfVisitante}">
-    <label>Empresa:</label>
-    <input name="empresaVisitante" th:field="*{EmpresaVisitante}">
     <input type="submit" value="Salvar"  class="btn btn-outline-success">
     </div>
    </form>
