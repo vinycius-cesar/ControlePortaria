@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import startec.controleportaria.metodosHoraData.PegarDataHora;
 import startec.controleportaria.model.CadastroPessoa;
 import startec.controleportaria.model.ControleHorario;
 import startec.controleportaria.model.ControleHorarioFK;
@@ -93,6 +94,8 @@ public class CadastroPessoaController {
 	public ModelAndView registrarEntrada( ControleHorarioFK controleHorariofk, @PathVariable("pessoaid") Long pessoaid) {
 		CadastroPessoa cadastroPessoa = pessoaRepository.findById(pessoaid).get();
 		controleHorariofk.setCadastroPessoa(cadastroPessoa);
+		controleHorariofk.setDataAtual(new PegarDataHora().retornarData());
+		controleHorariofk.setHoraEntrada(new PegarDataHora().retornarHora());
 		controleHorarioFKRepository.save(controleHorariofk);
 		
 		ModelAndView modelAndView = new ModelAndView("cadastro/controlehorariofk");
@@ -112,6 +115,7 @@ public class CadastroPessoaController {
        // Optional<CadastroPessoa> editarPessoa = pessoaRepository.findById(idpessoa);
         Optional<ControleHorarioFK> editarSaida = controleHorarioFKRepository.findById(idcontrolefk);
 		CadastroPessoa cadastroPessoa = controleHorarioFKRepository.findById(idcontrolefk).get().getCadastroPessoa();
+		
 
 		ModelAndView modelAndView = new ModelAndView("cadastro/controlehorariofk");
 		modelAndView.addObject("controleobj", editarSaida.get()); //pessoaobj = carrega os dados na tela e preenche os campos quando aperta em editar
@@ -120,8 +124,6 @@ public class CadastroPessoaController {
 		modelAndView.addObject("tblControleSaida", controleHorarioFKRepository.getMarcarSaida(cadastroPessoa.getId()));
 		return modelAndView;
 	}
-	
-	
 	
 	
 	

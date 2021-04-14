@@ -22,7 +22,7 @@ public interface ControleHorarioFKRepository extends CrudRepository<ControleHora
 	
 	
 	@Query(
-			  value = "select * from controle_horariofk where cadastro_pessoa_id = ?1 and saidaok = ''", 
+			  value = "select * from controle_horariofk where cadastro_pessoa_id = ?1 and saidaok is null", 
 			  nativeQuery = true)
 	public List<ControleHorarioFK> getMarcarSaida(Long pessoaid); 
 	
