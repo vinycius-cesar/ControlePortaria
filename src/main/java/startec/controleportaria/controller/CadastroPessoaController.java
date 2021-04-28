@@ -1,6 +1,9 @@
 package startec.controleportaria.controller;
 
+import java.io.IOException;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,13 +12,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import startec.controleportaria.model.CadastroEmpresa;
 import startec.controleportaria.model.CadastroPessoa;
-import startec.controleportaria.model.ControleHorario;
+
 import startec.controleportaria.model.ControleHorarioFK;
+import startec.controleportaria.repository.CadastroEmpresaRepository;
 import startec.controleportaria.repository.ControleHorarioFKRepository;
-import startec.controleportaria.repository.ControleHorarioRepository;
+
 import startec.controleportaria.repository.PessoaRepository;
 
 @Controller
@@ -27,25 +33,33 @@ public class CadastroPessoaController {
 	@Autowired
 	private ControleHorarioFKRepository controleHorarioFKRepository;
 	
-
-	@RequestMapping(method = RequestMethod.GET, value = "/cadastropessoa")
-	public ModelAndView inicio() {
-		ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
-		modelAndView.addObject("pessoaobj", new CadastroPessoa());
-		Iterable<CadastroPessoa> pessoasIt = pessoaRepository.findAll(); //Busca os dados do banco de dados
-		modelAndView.addObject("buscarPessoasTable", pessoasIt);
-		
-		return modelAndView;
-	}
+	@Autowired
+	private CadastroEmpresaRepository cadastroEmpresaRepository;
+	
+	
 
 	//Metodo de cadastro no banco de dados
-	@RequestMapping(method = RequestMethod.POST, value = "**/salvarpessoa")
-	public ModelAndView salvar(CadastroPessoa pessoa) {
+	@RequestMapping(method = RequestMethod.POST, value = "**/salvarpessoa", consumes = {"multipart/form-data"})
+	public ModelAndView salvar(CadastroPessoa pessoa, final MultipartFile file) throws IOException {
+		
+		if(file.getSize() > 0) {
+			pessoa.setFileVisitante(file.getBytes());
+			pessoa.setTipoFileVisitante(file.getContentType());
+			pessoa.setNomefileVisitante(file.getOriginalFilename());
+		}else {
+			if(pessoa.getId() != null && pessoa.getId() > 0) {//editando
+				CadastroPessoa pessoaTemp = pessoaRepository.findById(pessoa.getId()).get();
+				pessoa.setFileVisitante(pessoaTemp.getFileVisitante());
+				pessoa.setTipoFileVisitante(pessoaTemp.getTipoFileVisitante());
+				pessoa.setNomefileVisitante(pessoaTemp.getNomefileVisitante());
+			}
+		}
 		pessoaRepository.save(pessoa);
 		
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
 		Iterable<CadastroPessoa> pessoasIt = pessoaRepository.findAll(); //Busca os dados do banco de dados
-		
+		Iterable<CadastroEmpresa> empresaIt = cadastroEmpresaRepository.findAll();
+		modelAndView.addObject("selectEmpresa", empresaIt);
 		modelAndView.addObject("buscarPessoasTable", pessoasIt); 
 		modelAndView.addObject("pessoaobj", new CadastroPessoa());
 		
@@ -57,7 +71,10 @@ public class CadastroPessoaController {
 	public ModelAndView buscarPessoas() {
 		
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
+		
 		Iterable<CadastroPessoa> pessoasIt = pessoaRepository.findAll(); //Busca os dados do banco de dados
+		Iterable<CadastroEmpresa> empresaIt = cadastroEmpresaRepository.findAll();
+		modelAndView.addObject("selectEmpresa", empresaIt);
 		modelAndView.addObject("buscarPessoasTable", pessoasIt); //linka com os dados da tabela e puxa todos os dados do banco
 		modelAndView.addObject("pessoaobj", new CadastroPessoa());
 		return modelAndView;
@@ -70,6 +87,8 @@ public class CadastroPessoaController {
 		Optional<CadastroPessoa> editarPessoa = pessoaRepository.findById(idpessoa);
 		
 		ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
+		Iterable<CadastroEmpresa> empresaIt = cadastroEmpresaRepository.findAll();
+		modelAndView.addObject("selectEmpresa", empresaIt);
 		modelAndView.addObject("pessoaobj", editarPessoa.get()); //pessoaobj = carrega os dados na tela e preenche os campos quando aperta em editar
 		return modelAndView;
 	}
@@ -122,7 +141,24 @@ public class CadastroPessoaController {
 	}
 	
 	
-	
+	//MÉTODO PARA BAIXAR O ARQUIVO 
+	@GetMapping("**/baixarfile/{idpessoa}")
+	public void baixarfile(@PathVariable("idpessoa") Long idpessoa, HttpServletResponse response) throws IOException {
+		/*CONSULTAR O OBJETO PESSOA NO BANCO DE DADOS*/
+		CadastroPessoa pessoa = pessoaRepository.findById(idpessoa).get();
+		if(pessoa.getFileVisitante() != null) {
+			/*SETAR O TAMANHO DA RESPOSTA*/
+			response.setContentLength(pessoa.getFileVisitante().length);
+			/*TIPO DO ARQUIVO PARA O DOWNLOAD*/
+			response.setContentType(pessoa.getTipoFileVisitante());
+			/*DEFINE O CABEÇALHO DA RESPOSTA*/
+			String headerKey = "Content-Disposition";
+			String headerValue = String.format("attachment; filename=\"%s\"", pessoa.getNomefileVisitante());
+			response.setHeader(headerKey, headerValue);
+			/*FINALIZA A RESPOSTA*/
+			response.getOutputStream().write(pessoa.getFileVisitante());
+		}
+	}
 	
 	
 	

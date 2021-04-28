@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 
@@ -23,7 +24,30 @@ public class CadastroPessoa implements Serializable {
 	private String nomeVisitante;
 	private Long cpfVisitante;
 	private String empresaVisitante;
+	private String nomefileVisitante;
+	private String tipoFileVisitante;
+	@Lob
+	private byte [] fileVisitante;
 	
+	
+	public String getNomefileVisitante() {
+		return nomefileVisitante;
+	}
+	public void setNomefileVisitante(String nomefileVisitante) {
+		this.nomefileVisitante = nomefileVisitante;
+	}
+	public String getTipoFileVisitante() {
+		return tipoFileVisitante;
+	}
+	public void setTipoFileVisitante(String tipoFileVisitante) {
+		this.tipoFileVisitante = tipoFileVisitante;
+	}
+	public byte[] getFileVisitante() {
+		return fileVisitante;
+	}
+	public void setFileVisitante(byte[] fileVisitante) {
+		this.fileVisitante = fileVisitante;
+	}
 	@OneToMany(mappedBy = "cadastroPessoa")
 	private List<ControleHorarioFK> controleHorario;
 	
