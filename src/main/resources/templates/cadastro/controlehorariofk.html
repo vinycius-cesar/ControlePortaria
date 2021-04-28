@@ -53,16 +53,16 @@
           <div class="col-md-12" > 
            <label >ID</label>
            <input name="id" th:field="*{id}" readonly="readonly">
-                    
+            <!--         
           <label>Data Atual</label>
           <input name="dataAtual" th:field="*{dataAtual}"  value="" id="dataAtual" readonly="readonly">
-         
+          
           <label>Hora Entrada</label>
           <input name="horaEntrada" th:field="*{horaEntrada}"  value="" id="horaEntrada" readonly="readonly">
           
           <label>Hora Saida</label>
           <input name="horaSaida"  th:field="*{horaSaida}"  value="" id="horaSaida" readonly="readonly">
-         
+         -->
           
           <label>Finalidade</label>
           <input name="finalidade" th:field="*{finalidade}" onblur="finalidadeFocus();">
@@ -78,11 +78,11 @@
           
           <input name="placaVeiculo" th:field="*{placaVeiculo}">
          
-          <label>saida ok</label>
-          <input name="saidaOK"   id="saidaOK" readonly="readonly">           
+    <!--  <label>saida ok</label>
+          <input name="saidaOK"   id="saidaOK" readonly="readonly">        -->   
 
           
-          <input type="submit" value="REGISTRAR" id="registrarEntrada" onclick="funcao1();" disabled="disabled">
+          <input type="submit" value="REGISTRAR" id="registrarEntrada">
            <input type="submit" value="REGISTRAR SAIDA"  id="btnSaida" onclick="horarioSaida();" disabled="disabled" >
            </div>
                        
@@ -120,6 +120,7 @@
       </tr>
   </table>
    
+   <!--
 	<script type="text/javascript">
 	function funcao1() {
 		   var data = new Date();
@@ -177,7 +178,7 @@
 		}
 		
 	</script>
-	
+	  -->
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
    <link rel="stylesheet" href="//cdn.datable.net/1.10.10/css/jquery.dataTable.min.css">
