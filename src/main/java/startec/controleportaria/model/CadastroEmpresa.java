@@ -25,7 +25,11 @@ public class CadastroEmpresa implements Serializable{
 	private String cnpjEmpresa;
 	
 	@Column(name = "telefone")
+<<<<<<< HEAD
 	private String telefoneEmpresa;
+=======
+	private int telefoneEmpresa;
+>>>>>>> d83238da3dad65842ca52d49a9be62673a03f193
 
 	
 	
@@ -53,6 +57,7 @@ public class CadastroEmpresa implements Serializable{
 		this.cnpjEmpresa = cnpjEmpresa;
 	}
 
+<<<<<<< HEAD
 	
 
 	public String getTelefoneEmpresa() {
@@ -60,6 +65,13 @@ public class CadastroEmpresa implements Serializable{
 	}
 
 	public void setTelefoneEmpresa(String telefoneEmpresa) {
+=======
+	public int getTelefoneEmpresa() {
+		return telefoneEmpresa;
+	}
+
+	public void setTelefoneEmpresa(int telefoneEmpresa) {
+>>>>>>> d83238da3dad65842ca52d49a9be62673a03f193
 		this.telefoneEmpresa = telefoneEmpresa;
 	}
 

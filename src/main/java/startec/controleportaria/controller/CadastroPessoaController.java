@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+<<<<<<< HEAD
 import startec.controleportaria.model.CadastroEmpresa;
+=======
+import startec.controleportaria.metodosHoraData.PegarDataHora;
+>>>>>>> d83238da3dad65842ca52d49a9be62673a03f193
 import startec.controleportaria.model.CadastroPessoa;
 
 import startec.controleportaria.model.ControleHorarioFK;
@@ -112,6 +116,8 @@ public class CadastroPessoaController {
 	public ModelAndView registrarEntrada( ControleHorarioFK controleHorariofk, @PathVariable("pessoaid") Long pessoaid) {
 		CadastroPessoa cadastroPessoa = pessoaRepository.findById(pessoaid).get();
 		controleHorariofk.setCadastroPessoa(cadastroPessoa);
+		controleHorariofk.setDataAtual(new PegarDataHora().retornarData());
+		controleHorariofk.setHoraEntrada(new PegarDataHora().retornarHora());
 		controleHorarioFKRepository.save(controleHorariofk);
 		
 		ModelAndView modelAndView = new ModelAndView("cadastro/controlehorariofk");
@@ -131,6 +137,7 @@ public class CadastroPessoaController {
        // Optional<CadastroPessoa> editarPessoa = pessoaRepository.findById(idpessoa);
         Optional<ControleHorarioFK> editarSaida = controleHorarioFKRepository.findById(idcontrolefk);
 		CadastroPessoa cadastroPessoa = controleHorarioFKRepository.findById(idcontrolefk).get().getCadastroPessoa();
+		
 
 		ModelAndView modelAndView = new ModelAndView("cadastro/controlehorariofk");
 		modelAndView.addObject("controleobj", editarSaida.get()); //pessoaobj = carrega os dados na tela e preenche os campos quando aperta em editar
@@ -159,8 +166,6 @@ public class CadastroPessoaController {
 			response.getOutputStream().write(pessoa.getFileVisitante());
 		}
 	}
-	
-	
 	
 	
 	

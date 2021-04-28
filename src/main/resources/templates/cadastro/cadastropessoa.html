@@ -18,6 +18,7 @@
 <body>
 
 
+<<<<<<< HEAD
 	<div class="container">
 		<div class="row" align="center">
 			<div class="col-sm-12" >
@@ -99,6 +100,28 @@
 	 </div> 
      </form>
      
+=======
+  
+
+
+  
+   <div class="col-md-12" align="center"><h1>Cadastro de Pessoa</h1></div>
+   </br></br>
+   
+   <!-- FORMULARIO CADASTRO DE PESSOA -->
+   
+   <form action="salvarpessoa" method="post" th:object="${pessoaobj}" class="row g-3 needs-validation">
+    <div class="col-md-12">
+    <label>Empresa:</label>
+    <input name="empresaVisitante" th:field="*{EmpresaVisitante}">
+    <label>ID:</label>
+    <input name="Id" readonly="readonly" th:field="*{id}">
+    <label>Nome:</label>
+    <input name="nomeVisitante" th:field="*{nomeVisitante}">
+    <label>CPF:</label>
+    <input name="cpfVisitante" th:field="*{cpfVisitante}">
+    <input type="submit" value="Salvar"  class="btn btn-outline-success">
+>>>>>>> d83238da3dad65842ca52d49a9be62673a03f193
     </div>
     </div>
 	</div>
